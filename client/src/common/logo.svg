@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2017 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="110mm" height="110mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 11000 11000"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {stroke:#2B2A29;stroke-width:270}
+    .str0 {stroke:#2B2A29;stroke-width:200}
+    .fil0 {fill:none}
+    .fil1 {fill:#2B2A29;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="Слой_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <line class="fil0 str0" x1="3065" y1="7297" x2="3065" y2= "7297" />
+  <line class="fil0 str1" x1="632" y1="3161" x2="7938" y2= "7298" />
+  <line class="fil0 str1" x1="3065" y1="7297" x2="3066" y2= "4539" />
+  <line class="fil0 str1" x1="10371" y1="3162" x2="7950" y2= "4533" />
+  <line class="fil0 str1" x1="4724" y1="2721" x2="10371" y2= "5919" />
+  <polygon class="fil0 str1" points="3066,1783 632,3161 632,5918 3065,7297 5499,5917 7938,7298 10371,5919 10371,3162 7940,1781 5504,3162 "/>
+  <path class="fil1" d="M10241 2123c136,0 242,-112 242,-243 0,-133 -106,-243 -241,-243 -136,0 -242,112 -242,243 0,133 106,243 241,243zm0 -27c-122,0 -213,-97 -213,-215 0,-120 92,-218 214,-218 122,0 213,97 213,215 0,120 -92,218 -214,218zm-106 -95l71 0 0 -78 30 0 53 78 82 0 -61 -90c32,-13 53,-39 53,-79 0,-26 -7,-45 -22,-60 -18,-18 -46,-29 -87,-29l-120 0 0 257zm71 -134l0 -62 46 0c24,0 39,10 39,31 0,20 -14,31 -39,31l-47 0z"/>
+  <path class="fil1" d="M517 9342l465 0c374,0 633,-260 633,-596 0,-339 -259,-596 -633,-596l-465 0 0 1192zm262 -237l0 -718 203 0c214,0 359,148 359,359 0,214 -145,359 -359,359l-203 0zm1580 237l907 0 0 -233 -647 0 0 -250 562 0 0 -233 -562 0 0 -242 638 0 0 -233 -899 0 0 1192zm1651 0l856 0 0 -238 -594 0 0 -953 -262 0 0 1192zm1564 0l257 0 0 -773 332 504 7 0 335 -509 0 778 260 0 0 -1192 -283 0 -313 504 -313 -504 -283 0 0 1192zm1886 0l267 0 109 -267 504 0 109 267 274 0 -511 -1200 -242 0 -511 1200zm470 -499l158 -386 158 386 -317 0zm2046 519c230,0 366,-72 489,-203l-167 -179c-94,85 -177,140 -313,140 -204,0 -346,-170 -346,-375 0,-208 145,-374 346,-374 136,0 214,49 306,133l157 -180c-111,-109 -237,-194 -461,-194 -366,0 -621,277 -621,616 0,346 260,616 611,616z"/>
+ </g>
+</svg>

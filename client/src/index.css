@@ -1,0 +1,31 @@
+@import url('../node_modules/materialize-css/dist/css/materialize.css');
+html{
+  height: 100%;
+}
+body{
+  /* background: no-repeat radial-gradient(50% 30%, #fff, #b1b1b1) ; */
+  background-attachment:fixed;
+}
+.brand-logo{
+  left: 0.5rem;
+}
+nav{
+  background-color: rgba(0, 0, 0, 0) !important;
+  box-shadow: none;
+}
+footer{
+  background-color: rgba(0, 0, 0, 0) !important;
+
+}
+
+.main {
+  flex: 1 0 auto;
+}
+.valign-wrapper{
+  justify-content: center;
+}
+
+.cc{
+  background-color: #fff;
+  height: 100%;
+}
