@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model, Types} = require('mongoose')
 
 const schema = new Schema({
   email: {type:String, required:true, unique:true},
@@ -8,7 +8,8 @@ const schema = new Schema({
   patronymic:{type:String, required:true},
   parkName:{type:String, required:true},
   tel:{type:String, required:true},
-  accessLevel:{type:String, required:true, default:"unconfirmed" }
+  accessLevel:{type:String, required:true, default:"unconfirmed" },
+  drivers: [{ type: Types.ObjectId, ref: 'Link' }]
 
 
 })

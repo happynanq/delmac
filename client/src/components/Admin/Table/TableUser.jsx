@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-export const TableUser = ({ u }) => {
+export const TableUser = ({ u, changeHandler, toChange }) => {
   const [color, setColor] = useState(u.accessLevel === "unconfirmed" ? "red" : 'green');
   const clickhandler = () => {
-    setColor(color ==="red" ? 'green' : "red")
+    
+    let newArray
+    if(color === "red"){
+      newArray = [...toChange, u._id]
+
+    } else{
+      newArray = [...toChange].filter(e=>e!==u._id)
+
+    }
     console.log(u)
+    console.log(newArray)
+    changeHandler(newArray)
+    setColor(color ==="red" ? 'green' : "red")
+
   }
 
 
@@ -17,13 +29,14 @@ export const TableUser = ({ u }) => {
         <td>{`${u.parkName}`}</td>
         <td>
           <Link
+            to="#"
             className={
               'btn-floating btn-small waves-effect waves-light ' + color
             }
             id={u._id}
             onClick={clickhandler}
           >
-            <i class="material-icons">check</i>
+            <i className="material-icons">check</i>
           </Link>
         </td>
       </tr>

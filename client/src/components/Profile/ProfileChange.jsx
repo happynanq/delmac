@@ -28,7 +28,6 @@ export const ProfileChange = ({ ud, handleChange, userID, getUser }) => {
 
     if (Object.getOwnPropertyNames(toNew).length || changedUD?.newPassword?.trim() !== "") {
       try {
-        debugger
         const data = await request('/api/change/user', 'POST', {
           ...ud,
           _id: userID,

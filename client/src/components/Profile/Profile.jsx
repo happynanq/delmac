@@ -1,5 +1,5 @@
 import React from 'react'
-export const Profile = ({ud, handleChange, out, redirectAdminPanel}) => {
+export const Profile = ({ud, handleChange, out, redirectAdminPanel, createDriver}) => {
   
   
   return (
@@ -43,7 +43,9 @@ export const Profile = ({ud, handleChange, out, redirectAdminPanel}) => {
             :
             null 
           }
-          
+          <div className="section ">
+            <button className="btn black darken-2" onClick = {createDriver}>Создать водителя</button>
+          </div>
         </div>
       </div>
     </div>
