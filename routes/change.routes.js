@@ -16,9 +16,7 @@ router.post(
     check('tel', 'Неверно введён номер телефона').custom(v=>{
       
       let length = v.match(/\d/g).length
-      console.log("check11: ",length == 11 && v.split("").length === length)
       if( !(length == 11 && v.split("").length === length) ){
-        console.log("REJECTED")
         return Promise.reject()
       }
       return Promise.resolve()
@@ -38,9 +36,7 @@ router.post(
         })
       }
       const {_id } = req.body
-      console.log("BODY: ", req.body)
-      console.log("NEWBODY: ", newBody)
-      console.log("oldPassword: ", oldPassword)
+      
       
       const user = await User.findOne({ _id } )
 
@@ -48,7 +44,6 @@ router.post(
 
       if(newPassword.length !== 0){
         const isMatch = await bcrypt.compare(oldPassword, user.password)
-        console.log("isPass?????? ZXCZXCZXC 1000-7?? ", isMatch)
         if(!isMatch){
           return res.status(400).json({message:"Неверный старый пароль"})
         }
@@ -58,7 +53,6 @@ router.post(
       
       const newUser = await User.findOneAndUpdate({ _id }, b )
       newUser.save()
-      console.log("CHANGE USER: ", newUser)
       res.json({message:"Пользователь Изменён"})
       // if (!user) {s
       //   return res.status(400).json({ message: 'Пользователь не найден' })

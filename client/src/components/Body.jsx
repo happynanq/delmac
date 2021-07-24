@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
+import { AdminContainer } from './Admin/AdminContainer'
 import { Login } from './Auth/Login/Login'
 import { Register } from './Auth/Register/Register'
 import { MainPage } from './MainPage/MainPage'
@@ -16,6 +17,9 @@ export const Body = ()=>{
           </Route>
           <Route path="/profile" exact>
               <ProfileContainer/>
+          </Route>
+          <Route path="/profile/admin" exact>
+              <AdminContainer/>
           </Route>
           <Route path="/" exact>
             <div className=" valign-wrapper ">

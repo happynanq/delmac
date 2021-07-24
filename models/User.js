@@ -8,7 +8,7 @@ const schema = new Schema({
   patronymic:{type:String, required:true},
   parkName:{type:String, required:true},
   tel:{type:String, required:true},
-  accessLevel:{type:String, required:true, default:"uncomfrimed" }
+  accessLevel:{type:String, required:true, default:"unconfirmed" }
 
 
 })

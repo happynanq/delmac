@@ -14,9 +14,7 @@ router.post(
     check('tel', 'Неверно введён номер телефона').custom(v=>{
       
       let length = v.match(/\d/g).length
-      console.log("check11: ",length == 11 && v.split("").length === length)
       if( !(length == 11 && v.split("").length === length) ){
-        console.log("REJECTED")
         return Promise.reject()
       }
       return Promise.resolve()
