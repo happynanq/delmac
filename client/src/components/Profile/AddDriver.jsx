@@ -3,27 +3,15 @@ import { useHistory } from 'react-router-dom'
 import { useHttp } from '../../hooks/http.hook'
 import { useMessage } from '../../hooks/message.hook'
 
-export const AddDriver = () => {
-  const [data, setData] = useState([])
-  const clickHandler = (e)=>{
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      
-    }
-  }
-  const handleInput = (e) => {
-    const name = e.target.name
-    const value = e.target.value
-    setData({
-      ...data,
-      [name]: value,
-    })
-  }
-  const driver = ['name', 'lastname', 'patronymic', 'birthday', 'region']
+export const AddDriver = ({data, driver, keyboardHandler, handleInput,handleSubmit, createDriver }) => {
+  
+  
+  
   return (
     <div className="container">
+    
       <div className="row">
-        <form className="col s12" onKeyPress={clickHandler}>
+        <form className="col s12" onKeyPress={keyboardHandler}>
           {driver.map((e, id) => {
             
             return (
@@ -58,12 +46,12 @@ export const AddDriver = () => {
           })}
           
 
-          {/* <button className="btn" onClick={handleChange} disabled={loading}>
+          <button className="btn" onClick={createDriver}>
             Назад
           </button>
-          <button className="btn right" onClick={accept} disabled={loading}>
-            Принять
-          </button> */}
+          <button className="btn right" onClick={handleSubmit} >
+            Добавить
+          </button>
         </form>
       </div>
     </div>

@@ -1,6 +1,8 @@
 const { Router } = require('express')
 const config = require('config')
 const User = require('../models/User')
+const Driver = require('../models/Driver')
+
 const auth = require("../middleware/auth.middleware.js")
 
 const router = Router()
@@ -10,8 +12,11 @@ router.post(
   '/user',
   auth,
   async (req, res) => {
+    if(!req?.user?.userID){
+      return
+    }
     try {
-      
+      // console.log(req.user.userID)
       const {userID } = req.body
       const user = await User.findOne({ _id: req.user.userID })
       // const user = await User.findOne({ _id: userID })
@@ -27,18 +32,27 @@ router.post(
     }
   }
 )
-//! api/get !GET  USERs
+//! api/get/users !GET  USERs
 
 router.post(
-  '/users',
+  '/people',
   async (req, res) => {
     try {
 
+      let users
       
       // const {userID } = req.body
-      const users = await User.find({ accessLevel : req.body.accessLevel})
+      console.log(req.body)
+      if(req.body.accessLevel ==="driver" || req.body.accessLevel === "unconfirmedDriver"){
+        users = await Driver.find({ accessLevel : req.body.accessLevel})
+      } else if(req.body.accessLevel ==="unconfirmed" || req.body.accessLevel === "confirmed"){
+        users = await User.find({ ...req.body})
+      } else{
+        users = await Driver.find({...req.body})
+      }
+      console.log(users)
       const newUser = users.map((u)=>{
-        let {password, ...n}=u._doc
+        let {password, owner, ...n}=u._doc
         
         return n
       })

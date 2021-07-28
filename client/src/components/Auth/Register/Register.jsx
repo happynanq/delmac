@@ -31,7 +31,7 @@ export const Register = () => {
     const value = e.target.value
     setData({
       ...data,
-      [name]: value,
+      [name]: value.trim(),
     })
   }
 

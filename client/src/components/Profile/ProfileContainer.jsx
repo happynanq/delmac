@@ -2,7 +2,9 @@ import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../Context/AuthContext'
 import { useHttp } from '../../hooks/http.hook'
-import { AddDriver } from './AddDriver'
+import { useMessage } from '../../hooks/message.hook'
+import { Preloader } from '../Preloader/Preloader'
+import { AddDriverContainer } from './AddDriverContainer'
 import { Profile } from './Profile'
 import { ProfileChange } from './ProfileChange'
 export const ProfileContainer = () => {
@@ -10,60 +12,81 @@ export const ProfileContainer = () => {
   const [ud, setUd] = useState({})
   const [change, setChange] = useState(false)
   const [isDriver, setIsDriver] = useState(false)
-  const { request } = useHttp()
+  const { request, loading } = useHttp()
   const history = useHistory()
+  const message = useMessage()
 
-  const getUser = useCallback(async()=>{
+  const out = useCallback(() => {
+    auth.logout()
+    history.push('/')
+  }, [auth, history])
+
+  const getUser = useCallback(async () => {
     try {
-
-      let d = await request('/api/get/user', 'POST', null, {authorization:`Bearer ${auth.token}`})
-
-      setUd(d)
-
-     return d
-      
+      if (auth.token) {
+        let d = await request('/api/get/user', 'POST', null, {
+          authorization: `Bearer ${auth.token}`,
+        })
+        setUd(d)
+      }
     } catch (e) {
-      
+      message(e.message)
+
+      if (e.message === 'JWT истёк') {
+        out()
+      }
     }
-  }, [setUd, request, auth.token]) 
+  }, [setUd, request, auth.token, out, message])
   useEffect(() => {
     getUser()
   }, [getUser])
 
-  const handleChange = (e)=>{
+  const handleChange = (e) => {
     e.preventDefault()
     setChange(!change)
-    
   }
-  const out = ()=>{
-    auth.logout()
-    history.push("/")
+
+  const redirectAdminPanel = () => {
+    history.push('/profile/admin')
   }
-  const redirectAdminPanel = ()=>{
-    history.push("/profile/admin")
+  const redirectDatabase = () => {
+    history.push('/db')
   }
-  const createDriver = async (e)=>{
+  const createDriver = async (e) => {
     e.preventDefault()
     setIsDriver(!isDriver)
-    console.log("createDriver")
-
-    // let n = await request("/api/driver/create", "POST", null, {authorization:`Bearer ${auth.token}`})
   }
+  window.out = out
+
   return (
     <>
-
-    {
-      isDriver
-      ?
-      <AddDriver/>
-      :
-      change
-      ?
-      <ProfileChange ud={ud} handleChange={handleChange} userID = {auth.userID} getUser={getUser}/>
-      :
-      <Profile ud={ud} handleChange={handleChange} out={out} redirectAdminPanel={redirectAdminPanel} createDriver={createDriver}/>
-    }
+      {loading || ud.name === undefined ? (
+        <div className="center">
+          <Preloader />
+        </div>
+      ) : isDriver ? (
+        <AddDriverContainer
+          auth={auth}
+          createDriver={createDriver}
+          request={request}
+        />
+      ) : change ? (
+        <ProfileChange
+          ud={ud}
+          handleChange={handleChange}
+          token={auth.token}
+          getUser={getUser}
+        />
+      ) : (
+        <Profile
+          ud={ud}
+          handleChange={handleChange}
+          out={out}
+          redirectAdminPanel={redirectAdminPanel}
+          createDriver={createDriver}
+          redirectDatabase={redirectDatabase}
+        />
+      )}
     </>
-    
   )
 }

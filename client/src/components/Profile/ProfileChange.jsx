@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useHttp } from '../../hooks/http.hook'
 import { useMessage } from '../../hooks/message.hook'
 
-export const ProfileChange = ({ ud, handleChange, userID, getUser }) => {
+export const ProfileChange = ({ ud, handleChange, token, getUser }) => {
   const { request, loading } = useHttp()
   const [changedUD, setChangedUD] = useState({ ...ud, newPassword:"", oldPassword:"" })
   const message = useMessage()
@@ -30,10 +30,11 @@ export const ProfileChange = ({ ud, handleChange, userID, getUser }) => {
       try {
         const data = await request('/api/change/user', 'POST', {
           ...ud,
-          _id: userID,
           ...toNew,
           newPassword:changedUD.newPassword,
           oldPassword:changedUD.oldPassword,
+        }, {
+          authorization:`Bearer ${token}`
         })
         message(data.message)
         getUser() // UPDATE USER
@@ -57,7 +58,7 @@ export const ProfileChange = ({ ud, handleChange, userID, getUser }) => {
       <div className="row">
         <form className="col s12" onKeyPress={clickHandler}>
           {Object.keys(ud).map((e, id) => {
-            if (e === 'accessLevel') {
+            if (e === 'accessLevel' || e === "drivers") {
               return null
             }
             return (

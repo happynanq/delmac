@@ -12,6 +12,7 @@ export const useHttp = () => {
         headers['Content-Type'] = 'application/json'
       }
       try {
+        
         const response = await fetch(url, {
           method,
           body,
@@ -21,14 +22,13 @@ export const useHttp = () => {
         if(!response.ok){
           throw new Error(data.message || 'Что-то пошло не так')
         }
+        setLoading(false)
 
         return data
       } catch (e) {
+        setLoading(false)
         setError(e.message)
         throw e
-      }
-      finally{
-        setLoading(false)
       }
     },
     []

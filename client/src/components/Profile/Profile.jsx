@@ -1,6 +1,5 @@
 import React from 'react'
-export const Profile = ({ud, handleChange, out, redirectAdminPanel, createDriver}) => {
-  
+export const Profile = ({ud, handleChange, out, redirectAdminPanel, createDriver, redirectDatabase}) => {
   
   return (
     <div className="container center">
@@ -46,6 +45,14 @@ export const Profile = ({ud, handleChange, out, redirectAdminPanel, createDriver
           <div className="section ">
             <button className="btn black darken-2" onClick = {createDriver}>Создать водителя</button>
           </div>
+          {
+            ud.accessLevel !=="unconfirmed"?
+            <div className="section ">
+              <button className="btn blue darken-2" onClick = {redirectDatabase}>Посмотреть базу данных</button>
+            </div>
+            :
+            null
+          }
         </div>
       </div>
     </div>

@@ -1,16 +1,19 @@
 const { Router } = require('express')
 const config = require('config')
 const bcrypt = require('bcryptjs')
-
 const { check, validationResult, validator } = require('express-validator')
 
 const User = require('../models/User')
+const Driver = require('../models/Driver')
+const auth = require("../middleware/auth.middleware.js")
+const { findOne } = require('../models/User')
 const router = Router()
 
 
 //! api/change !GET ONE USER
 router.post(
   '/user',
+  auth,
   [
     check('email', 'Некорректный email').isEmail(),
     check('tel', 'Неверно введён номер телефона').custom(v=>{
@@ -35,8 +38,7 @@ router.post(
           message: 'Некорректные данные',
         })
       }
-      const {_id } = req.body
-      
+      const {userID : _id}  = req.user
       
       const user = await User.findOne({ _id } )
 
@@ -57,6 +59,31 @@ router.post(
       // if (!user) {s
       //   return res.status(400).json({ message: 'Пользователь не найден' })
       // }
+      
+      
+    } catch (e) {
+      console.log("ERROR FROM CHANGE : ", e)
+      res.status(500).json({ message: 'Что то пошло не так, попробуйте снова' })
+    }
+  }
+)
+
+router.post(
+  '/people',
+  async (req, res) => {
+    try {
+      req.body.data.map(async(_id)=>{
+        if(req.body.accessLevel==="unconfirmedDriver"){
+          let d = await Driver.findOneAndUpdate({_id}, {accessLevel:"driver"})
+          d.save()
+        }else if(req.body.accessLevel==="unconfirmed"){
+          let u = await User.findOneAndUpdate({_id}, {accessLevel:"confirmed"})
+          // u.save()
+        }
+      })
+
+      res.json({message:"База отредактирована"})
+      
       
       
     } catch (e) {
