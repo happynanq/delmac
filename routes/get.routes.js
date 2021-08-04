@@ -42,7 +42,6 @@ router.post(
       let users
       
       // const {userID } = req.body
-      console.log(req.body)
       if(req.body.accessLevel ==="driver" || req.body.accessLevel === "unconfirmedDriver"){
         users = await Driver.find({ accessLevel : req.body.accessLevel})
       } else if(req.body.accessLevel ==="unconfirmed" || req.body.accessLevel === "confirmed"){
@@ -50,7 +49,6 @@ router.post(
       } else{
         users = await Driver.find({...req.body})
       }
-      console.log(users)
       const newUser = users.map((u)=>{
         let {password, owner, ...n}=u._doc
         

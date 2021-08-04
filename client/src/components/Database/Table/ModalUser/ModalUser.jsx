@@ -5,8 +5,7 @@ import { ModalTable } from './ModalTable'
 export const ModalUser = ({u}) => {
   useEffect(() => {
     var elems = document.querySelectorAll('.modal')
-    var instances = M.Modal.init(elems)
-    console.log(u)
+     M.Modal.init(elems)
   }, [])
 
   return (
@@ -21,7 +20,7 @@ export const ModalUser = ({u}) => {
         <div class="modal-content">
           <h4>{`${u.lastName} ${u.name} ${u.patronymic}`}</h4>
           {/* {Object.keys(u).map(e=>{
-            debugger
+            
             console.log(e)
           })} */}
           <ModalTable u={u}/>

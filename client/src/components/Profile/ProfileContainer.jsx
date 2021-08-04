@@ -7,11 +7,11 @@ import { Preloader } from '../Preloader/Preloader'
 import { AddDriverContainer } from './AddDriverContainer'
 import { Profile } from './Profile'
 import { ProfileChange } from './ProfileChange'
-export const ProfileContainer = () => {
+export const ProfileContainer = ({ toChangeDriver }) => {
   const auth = useContext(AuthContext)
   const [ud, setUd] = useState({})
   const [change, setChange] = useState(false)
-  const [isDriver, setIsDriver] = useState(false)
+  const [isDriver, setIsDriver] = useState(toChangeDriver)
   const { request, loading } = useHttp()
   const history = useHistory()
   const message = useMessage()
@@ -54,7 +54,8 @@ export const ProfileContainer = () => {
   }
   const createDriver = async (e) => {
     e.preventDefault()
-    setIsDriver(!isDriver)
+    // setIsDriver(!isDriver)
+    history.push('/profile/')
   }
   window.out = out
 
@@ -65,11 +66,7 @@ export const ProfileContainer = () => {
           <Preloader />
         </div>
       ) : isDriver ? (
-        <AddDriverContainer
-          auth={auth}
-          createDriver={createDriver}
-          request={request}
-        />
+        <AddDriverContainer />
       ) : change ? (
         <ProfileChange
           ud={ud}
@@ -81,7 +78,6 @@ export const ProfileContainer = () => {
         <Profile
           ud={ud}
           handleChange={handleChange}
-          out={out}
           redirectAdminPanel={redirectAdminPanel}
           createDriver={createDriver}
           redirectDatabase={redirectDatabase}

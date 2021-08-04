@@ -7,7 +7,7 @@ import { AuthContext } from '../../../Context/AuthContext'
 
 // ! Доделать регистрацию
 export const Register = () => {
-  const auth = useContext(AuthContext);
+  const auth = useContext(AuthContext)
   const message = useMessage()
   const { loading, error, request, clearError } = useHttp()
   const history = useHistory()
@@ -18,23 +18,44 @@ export const Register = () => {
   }
   const registerHandler = async (e) => {
     e.preventDefault()
+    if(!data.checked){
+      
+      return message("Вы не согласны с наешй политикой, пожалуйста ознакомтесь с ней и подтвердите согласие")
+    }
+    
     try {
+      
+      if(!data.lastName || !data.name || !data.patronymic){
+        
+        return message("Введите полное ФИО")
+      }
       const res = await request('/api/auth/register', 'POST', { ...data })
-      message(res.message)
-      history.push('/login')
-    } catch (e) {}
-
+      if (!res.errors) {
+        history.push('/login')
+        message(res.message)
+        
+      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const handleSubmit = (e) => {
-    const name = e.target.name
-    const value = e.target.value
+    let name = e.target.name
+    let value = e.target.value
+    if (name === 'fullName') {
+      let [lastName, name, patronymic] = value.split(' ')
+      
+      return setData({ ...data, lastName, name, patronymic })
+    }
     setData({
       ...data,
       [name]: value.trim(),
     })
   }
-
+  const clickhandler = (e)=>{
+    setData({...data, checked: e.target.checked})
+  }
   useEffect(() => {
     message(error)
     clearError()
@@ -43,42 +64,6 @@ export const Register = () => {
     <div className="container">
       <div className="row">
         <form className="col s12" onSubmit={registerHandler}>
-          <div className="row">
-            <div className="input-field col s12">
-              <input
-                name="name"
-                id="name"
-                type="text"
-                className="validate"
-                onChange={handleSubmit}
-              />
-              <label htmlFor="name">Имя</label>
-            </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s12">
-              <input
-                name="lastName"
-                id="lastName"
-                type="text"
-                className="validate"
-                onChange={handleSubmit}
-              />
-              <label htmlFor="lastName">Фамилия</label>
-            </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s12">
-              <input
-                name="patronymic"
-                id="patronymic"
-                type="text"
-                className="validate"
-                onChange={handleSubmit}
-              />
-              <label htmlFor="patronymic">Отчество</label>
-            </div>
-          </div>
           <div className="row">
             <div className="input-field col s12">
               <input
@@ -94,25 +79,26 @@ export const Register = () => {
           <div className="row">
             <div className="input-field col s12">
               <input
+                name="fullName"
+                id="fullName"
+                type="text"
+                className="validate"
+                onChange={handleSubmit}
+              />
+              <label htmlFor="fullName">ФИО</label>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="input-field col s12">
+              <input
                 name="tel"
                 id="tel"
                 type="tel"
                 className="validate"
                 onChange={handleSubmit}
               />
-              <label htmlFor="tel">Телефон</label>
-            </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s12">
-              <input
-                name="password"
-                id="password"
-                type="password"
-                className="validate"
-                onChange={handleSubmit}
-              />
-              <label htmlFor="password">Password</label>
+              <label htmlFor="tel">Контактный телефон</label>
             </div>
           </div>
           <div className="row">
@@ -124,10 +110,47 @@ export const Register = () => {
                 className="validate"
                 onChange={handleSubmit}
               />
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Ваш email</label>
             </div>
           </div>
-          <button className="btn" disabled={loading}>Регистрация</button>
+          <div className="row">
+            <div className="input-field col s12">
+              <input
+                name="userLogin"
+                id="userLogin"
+                type="text"
+                className="validate"
+                onChange={handleSubmit}
+              />
+              <label htmlFor="userLogin">Логин</label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <input
+                name="password"
+                id="password"
+                type="password"
+                className="validate"
+                onChange={handleSubmit}
+              />
+              <label htmlFor="password">Пароль</label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <p>
+                <label>
+                  <input type="checkbox" onClick={clickhandler}/>
+                  <span>Я согласен с политикой конфиденциальности</span>
+                </label>
+              </p>
+            </div>
+          </div>
+
+          <button className="btn" disabled={loading}>
+            Регистрация
+          </button>
           <button className="btn right" disabled={loading} onClick={goToLogin}>
             Войти в систему
           </button>

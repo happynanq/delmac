@@ -13,15 +13,14 @@ export const Table = ({ data, setType, handleSubmit, loading }) => {
 
   */
   const changeHandler = (data) => {
+    // 
     setToChange(data)
   }
 
   const handleClick = (e) => {
     setType(e.target.name)
   }
-  useEffect(() => {
-    console.log("DATA FROM TABLE:", data)
-  }, [data])
+  
   return (
     <div className="container">
       <ul id="dropdown2" className="dropdown-content">

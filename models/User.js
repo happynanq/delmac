@@ -9,7 +9,8 @@ const schema = new Schema({
   parkName:{type:String, required:true},
   tel:{type:String, required:true},
   accessLevel:{type:String, required:true, default:"unconfirmed" },
-  drivers: [{ type: Types.ObjectId, ref: 'Link' }]
+  drivers: [{ type: Types.ObjectId, ref: 'Link' }],
+  userLogin:{type:String, required:true}
 
 
 })

@@ -5,7 +5,6 @@ export const TableInput = ({handleSubmit }) => {
 
   
   const handleInput = (e) => {
-    console.log('handle')
     if(e.target.value.trim() ===""){
       delete find[e.target.name] 
       return  setFind({ ...find})

@@ -16,12 +16,9 @@ router.post(
       let body = req.body
       const driver = new Driver({...req.body, owner:req.user.userID, parkName:user.parkName, allCredit: Number(body.fineСredit) + Number(body.accidentСredit) + Number(body.leaseСredit) + Number(body.otherСredit)})
       const newUser = await User.findOneAndUpdate({_id:req.user.userID}, {drivers:[ ...user.drivers ,driver._id]} ) 
-      console.log("DRIVER, ", driver)
-      // console.log("DREIVERID: ", driver._id)
-      // console.log("USER: ", user.drivers)
+      
       driver.save()
       newUser.save()
-      // console.log("user saved: ", newUser)
       res.json({message:"Водила добавлен"})
     } catch (e) {
       console.log(e)

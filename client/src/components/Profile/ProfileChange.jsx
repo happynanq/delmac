@@ -2,10 +2,18 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useHttp } from '../../hooks/http.hook'
 import { useMessage } from '../../hooks/message.hook'
+import M from 'materialize-css'
+import { RecoveryContainer } from '../Recovery/RecoveryContainer'
 
 export const ProfileChange = ({ ud, handleChange, token, getUser }) => {
   const { request, loading } = useHttp()
-  const [changedUD, setChangedUD] = useState({ ...ud, newPassword:"", oldPassword:"" })
+  const [changedUD, setChangedUD] = useState({
+    ...ud,
+    newPassword: '',
+    oldPassword: '',
+  })
+  const storageName = 'userData'
+
   const message = useMessage()
   const handleInput = (e) => {
     const name = e.target.name
@@ -15,9 +23,8 @@ export const ProfileChange = ({ ud, handleChange, token, getUser }) => {
       [name]: value,
     })
   }
-
   const accept = async (e) => {
-    e?.preventDefault()
+    // e?.preventDefault()
     const toNew = {}
     for (let base in ud) {
       if (ud[base] === changedUD[base]) {
@@ -26,26 +33,34 @@ export const ProfileChange = ({ ud, handleChange, token, getUser }) => {
       toNew[base] = changedUD[base]
     }
 
-    if (Object.getOwnPropertyNames(toNew).length || changedUD?.newPassword?.trim() !== "") {
+    if (
+      Object.getOwnPropertyNames(toNew).length ||
+      changedUD?.newPassword?.trim() !== ''
+    ) {
       try {
-        const data = await request('/api/change/user', 'POST', {
-          ...ud,
-          ...toNew,
-          newPassword:changedUD.newPassword,
-          oldPassword:changedUD.oldPassword,
-        }, {
-          authorization:`Bearer ${token}`
-        })
+        const data = await request(
+          '/api/change/user',
+          'POST',
+          {
+            ...ud,
+            ...toNew,
+            newPassword: changedUD.newPassword,
+            oldPassword: changedUD.oldPassword,
+          },
+          {
+            authorization: `Bearer ${token}`,
+          }
+        )
         message(data.message)
         getUser() // UPDATE USER
+        localStorage.setItem(storageName, JSON.stringify({...JSON.parse(localStorage.getItem(storageName)), accessLevel:"unconfirmed"}))
+        debugger
       } catch (e) {
-
         message(e.message)
       }
-    } else{
-      message("Вы ничего не изменили")
+    } else {
+      message('Вы ничего не изменили')
     }
-    // console.log("DATA: ", data)
   }
   const clickHandler = (e) => {
     if (e.key === 'Enter') {
@@ -53,12 +68,16 @@ export const ProfileChange = ({ ud, handleChange, token, getUser }) => {
       accept()
     }
   }
+  useEffect(() => {
+    var elems = document.querySelectorAll('.modal')
+    M.Modal.init(elems)
+  }, [])
   return (
     <div className="container">
       <div className="row">
         <form className="col s12" onKeyPress={clickHandler}>
           {Object.keys(ud).map((e, id) => {
-            if (e === 'accessLevel' || e === "drivers") {
+            if (e === 'accessLevel' || e === 'drivers') {
               return null
             }
             return (
@@ -74,14 +93,6 @@ export const ProfileChange = ({ ud, handleChange, token, getUser }) => {
                         ? 'tel'
                         : 'text'
                     }
-                    /*if("password"){
-                        return "password"
-                      else if("tel"){
-                        return tel
-                      }
-                      return "text"
-                    }
-                    */
                     value={changedUD[e]}
                     className="validate"
                     onChange={handleInput}
@@ -97,19 +108,9 @@ export const ProfileChange = ({ ud, handleChange, token, getUser }) => {
                 name={'oldPassword'}
                 id={'oldPassword'}
                 type="password"
-                /*if("password"){
-                        return "password"
-                      else if("tel"){
-                        return tel
-                      }
-                      return "text"
-                    }
-                    */
-                    
                 className="validate"
                 onChange={handleInput}
                 value={changedUD.oldPassword}
-
               />
               <label htmlFor="oldPassword"> Введите старый пароль</label>
             </div>
@@ -124,16 +125,44 @@ export const ProfileChange = ({ ud, handleChange, token, getUser }) => {
                 value={changedUD.newPassword}
                 className="validate"
                 onChange={handleInput}
-
               />
               <label htmlFor="newPassword"> Введите новый пароль</label>
             </div>
           </div>
+          <div className="row">
+            <div className="center">
+              Внимание, после изменения данных, аккаунт будет иметь
+              неподтверждённый статус!
+            </div>
+          </div>
+          <div className="row">
+            <div className=" black-text">
+              <a className="modal-trigger black-text" href="#modal12">
+                Забыли пароль?
+              </a>
 
-          <button className="btn" onClick={handleChange} disabled={loading}>
+              <div id="modal12" className="modal black-text">
+                <div className="modal-content left-align">
+                  <h4>Восстановелие пароля</h4>
+                  <RecoveryContainer />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            className="btn amber darken-3"
+            onClick={handleChange}
+            disabled={loading}
+          >
             Назад
           </button>
-          <button className="btn right" onClick={accept} disabled={loading}>
+
+          <button
+            className="btn right light-green lighten-1"
+            onClick={accept}
+            disabled={loading}
+          >
             Принять
           </button>
         </form>

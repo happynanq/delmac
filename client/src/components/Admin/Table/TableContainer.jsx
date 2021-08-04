@@ -6,7 +6,6 @@ import { Table } from './Table'
 export const TableContainer = () => {
   const [type, setType] = useState('unconfirmed')
   const [data, setData] = useState([])
-  const [update, setUpdate] = useState()
   const { request, loading } = useHttp()
   const message = useMessage()
   const getUsers = useCallback(async () => {

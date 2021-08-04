@@ -19,12 +19,8 @@ export const Table = ({ data, setType, handleSubmit, loading, userData }) => {
     setToChange(data)
   }
 
-  const handleClick = (e) => {
-    setType(e.target.name)
-  }
-  useEffect(() => {
-    console.log("DATA FROM TABLE:", data)
-  }, [data])
+  
+  
   return (
     <div className="container">
       

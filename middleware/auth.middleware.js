@@ -14,24 +14,21 @@ module.exports = async(req,res, next)=>{
     let er = false
     const decoded = await  jwt.verify(token, config.get("jwtSecret"), (err, d)=>{
       if(err){
-        console.log("ОШИБКА БЛЯТЬ", err.message)
+        console.log("ОШИБКА", err.message)
         if(err.message==='jwt expired'){
           er=true
         }
         
       }
-      // console.log("D:",d)
       return d
     })
     if(er){
       return res.status(401).json({message:"JWT истёк", comand:"out"})
     }
-    // console.log(decoded)
 
     req.user = decoded
     next()
   } catch (e) {
-    // console.log("authMiddleware", e)
     res.status(401).json({message:"Нет авторизации"})
   }
 }

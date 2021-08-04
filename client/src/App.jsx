@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Body } from './components/Body';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
@@ -7,11 +7,11 @@ import { useAuth } from './hooks/auth.hook';
 
 
 function App() {
-  const {login, logout, userID, token} = useAuth()
+  const {login, logout, userID, token, accessLevel} = useAuth()
   const isAuthenticated = !!token
   return (
     <AuthContext.Provider value = {{
-      token, login, logout, userID, isAuthenticated
+      token, login, logout, userID, isAuthenticated, accessLevel
     }}>
       <Header/>
       <Body/>

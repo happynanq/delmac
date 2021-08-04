@@ -7,5 +7,6 @@ export const  AuthContext = createContext({
   userID:null,
   login:noop,
   logout:noop,
-  isAuthenticated:false
+  isAuthenticated:false,
+  accessLevel:"unconfirmed"
 })

@@ -1,18 +1,67 @@
-import React from 'react';
+import React, { useEffect } from 'react'
+import { Modal } from '../Modal/Modal'
+import M from 'materialize-css'
 
-export const Footer = ()=>{
-  return(
+export const Footer = () => {
+  useEffect(() => {
+    var elems = document.querySelectorAll('.modal')
+    M.Modal.init(elems)
+  }, [])
+  return (
     <footer className="page-footer">
-          <div className="container">
-            <div className="row center-align">
-              
-              <div className=" center-align black-text">
-                <p>Copyright © 2021</p>
-                <a className="policy black-text" id="content" href="#policy">политика конфиденциальности</a>
+      <div className="container">
+        <div className="row center-align">
+          <div className=" center-align black-text">
+            <p>Copyright © 2021</p>
+            <Modal />
+
+            <div className="center-align black-text">
+              <a className="modal-trigger black-text" href="#modal13">
+                Политика конфиденциальности
+              </a>
+
+              <div id="modal13" className="modal black-text">
+                <div className="modal-content left-align">
+                  <h4>О проекте</h4>
+                  <p>
+                    Сайт уважает и соблюдает законодательство РФ. Также мы
+                    уважаем Ваше право и соблюдаем конфиденциальность при
+                    заполнении, передаче и хранении ваших конфиденциальных
+                    сведений.
+                  </p>
+                  <p>
+                    Мы запрашиваем Ваши персональные данные исключительно для
+                    информирования об оказываемых услугах сайта.{' '}
+                  </p>
+                  <p>
+                    {' '}
+                    Персональные данные - это информация, относящаяся к субъекту
+                    персональных данных, то есть, к потенциальному пользователю.
+                    В частности, это фамилия, имя и отчество, дата рождения,
+                    адрес, контактные реквизиты (телефон, адрес электронной
+                    почты), семейное, имущественное положение и иные данные,
+                    относимые Федеральным законом от 27 июля 2006 года № 152-ФЗ
+                    «О персональных данных» (далее – «Закон») к категории
+                    персональных данных.{' '}
+                  </p>
+                  <p>
+                    {' '}
+                    Если Вы разместили Ваши контактные данных на сайте, то Вы
+                    автоматически согласились на обработку данных и дальнейшую
+                    передачу Ваших контактных данных менеджерам нашего сайта.{' '}
+                  </p>
+                  <p>
+                    {' '}
+                    В случае отзыва согласия на обработку своих персональных
+                    данных мы обязуемся удалить Ваши персональные данные в срок
+                    не позднее 3 рабочих дней.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          
-        </footer>
+        </div>
+      </div>
+    </footer>
   )
 }

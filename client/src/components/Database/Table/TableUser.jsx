@@ -16,14 +16,7 @@ export const TableUser = ({ u, changeHandler, toChange }) => {
       <td>{`${u.describe}`}</td>
       <td>{`${u.allCredit}`}</td>
       <td>
-        {/* <Link
-          to="#"
-          className={'btn-floating btn-small waves-effect waves-light blue modal-trigger '}
-          id={u._id}
-          onClick={clickhandler}
-        >
-          <i className="material-icons">search</i>
-        </Link> */}
+        
         <ModalUser u={u}/>
         
       </td>

@@ -7,11 +7,23 @@ export const TableUser = ({ u, changeHandler, toChange }) => {
   const clickhandler = () => {
     //!ДОБАВИТЬ В БАЗУ
     let newArray
-    if (color === 'red') {
-      newArray = [...toChange, u._id]
-    } else {
-      newArray = [...toChange].filter((e) => e !== u._id)
+    if(u.accessLevel === "driver"){
+      if (color === 'green') {
+      
+        newArray = [...toChange, u._id]
+      } else {
+        newArray = [...toChange].filter((e) => e !== u._id)
+      }
+    } else{
+      if (color === 'red') {
+      
+        newArray = [...toChange, u._id]
+      } else {
+        newArray = [...toChange].filter((e) => e !== u._id)
+      }
     }
+    
+    
     changeHandler(newArray)
     setColor(color === 'red' ? 'green' : 'red')
   }
