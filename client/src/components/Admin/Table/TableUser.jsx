@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-export const TableUser = ({ u, changeHandler, toChange }) => {
+export const TableUser = ({ u, changeHandler, toChange, handleDelete }) => {
   const [color, setColor] = useState(
-    u.accessLevel === 'confirmed' ||  u.accessLevel === 'driver'  ? 'green' : 'red'
+    u.accessLevel === 'confirmed' || u.accessLevel === 'driver'
+      ? 'green'
+      : 'red'
   )
   const clickhandler = () => {
     //!ДОБАВИТЬ В БАЗУ
     let newArray
-    if(u.accessLevel === "driver"){
+    if (u.accessLevel === 'driver') {
       if (color === 'green') {
-      
         newArray = [...toChange, u._id]
       } else {
         newArray = [...toChange].filter((e) => e !== u._id)
       }
-    } else{
+    } else {
       if (color === 'red') {
-      
         newArray = [...toChange, u._id]
       } else {
         newArray = [...toChange].filter((e) => e !== u._id)
       }
     }
-    
-    
+
     changeHandler(newArray)
     setColor(color === 'red' ? 'green' : 'red')
   }
@@ -46,6 +45,16 @@ export const TableUser = ({ u, changeHandler, toChange }) => {
               onClick={clickhandler}
             >
               <i className="material-icons">check</i>
+            </Link>
+          </td>
+          <td>
+            <Link
+              to="#"
+              className={'btn-floating btn-small waves-effect waves-light red'}
+              id={u._id}
+              onClick={(e) => handleDelete(e, u._id)}
+            >
+              <i className="material-icons">close</i>
             </Link>
           </td>
         </tr>
@@ -80,6 +89,16 @@ export const TableUser = ({ u, changeHandler, toChange }) => {
                 <i className="material-icons">check</i>
               </Link>
             )}
+          </td>
+          <td>
+            <Link
+              to="#"
+              className={'btn-floating btn-small waves-effect waves-light red'}
+              id={u._id}
+              onClick={(e) => handleDelete(e, u._id)}
+            >
+              <i className="material-icons">close</i>
+            </Link>
           </td>
         </tr>
       )}

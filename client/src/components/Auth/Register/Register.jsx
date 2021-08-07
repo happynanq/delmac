@@ -152,7 +152,7 @@ export const Register = () => {
             Регистрация
           </button>
           <button className="btn right" disabled={loading} onClick={goToLogin}>
-            Войти в систему
+            Вход
           </button>
         </form>
       </div>

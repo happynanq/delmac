@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { TableUser } from './TableUser'
 import M from 'materialize-css'
 import { Preloader } from '../../Preloader/Preloader'
-export const Table = ({ data, setType, handleSubmit, loading }) => {
+export const Table = ({ data, setType, handleSubmit, loading, handleDelete }) => {
   const [toChange, setToChange] = useState([])
   /* 
     [
@@ -49,7 +49,7 @@ export const Table = ({ data, setType, handleSubmit, loading }) => {
         name="action"
         onClick={(e) => handleSubmit(e, toChange)}
       >
-        Submit
+        Принять изменения
         <i className="material-icons right">send</i>
       </button>
       <table>
@@ -72,6 +72,9 @@ export const Table = ({ data, setType, handleSubmit, loading }) => {
                 <th>{data[0]?.accessLevel ==="driver" ? 'Опровергнуть' : 'Подтвердить'}</th>
               </>
             )}
+            <th>
+              Удалить
+            </th>
           </tr>
         </thead>
 
@@ -85,6 +88,7 @@ export const Table = ({ data, setType, handleSubmit, loading }) => {
                     changeHandler={changeHandler}
                     toChange={toChange}
                     key={u._id}
+                    handleDelete={handleDelete}
                   />
               )
           })

@@ -110,12 +110,14 @@ router.post('/people', async (req, res) => {
 router.post('/password', async (req, res) => {
   try {
     const { _id, pass } = req.body
+    console.log(_id)
     
     const user = await User.findOneAndUpdate(
-      { _id: req.id },
+      { _id },
       { password: pass }
     )
-    res.json({ message: 'Пароь успешно изменён' })
+    console.log("user", user)
+    res.json({ message: 'Пароль успешно изменён' })
   } catch (e) {
     console.log('ERROR FROM CHANGE : ', e)
     res.status(500).json({ message: 'Что то пошло не так, попробуйте снова' })

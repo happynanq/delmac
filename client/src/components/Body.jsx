@@ -49,7 +49,7 @@ export const Body = () => {
           <Register />
         </Route>
         <Route path="/profile" exact>
-          <ProfileContainer toChangeDriver={toChangeDriver}/>
+          <ProfileContainer toChangeDriver={toChangeDriver} setToChangeDriver={setToChangeDriver}/>
         </Route>
         <Route path="/profile/admin" exact>
           <AdminContainer />

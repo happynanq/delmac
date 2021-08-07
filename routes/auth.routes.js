@@ -92,7 +92,7 @@ router.post(
         return res.status(400).json({ message: 'Неверно введены данные' })
       }
       const token = jwt.sign({ userID: user.id }, config.get('jwtSecret'), {
-        expiresIn: '1h',
+        expiresIn: '7d',
       })
       res.json({ token, userID: user.id, accessLevel: user.accessLevel })
     } catch (e) {
@@ -109,6 +109,7 @@ router.post('/changePassword', [], async (req, res) => {
 
     if (login) {
       user = await User.findOne({ userLogin:login })
+      email= user.email
     } else {
       user = await User.findOne({ email })
 

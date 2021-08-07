@@ -9,6 +9,7 @@ app.use('/api/auth',  require('./routes/auth.routes'))
 app.use('/api/get',  require('./routes/get.routes'))
 app.use('/api/change',  require('./routes/change.routes'))
 app.use('/api/driver',  require('./routes/driver.routes'))
+app.use('/api/delete',  require('./routes/delete.routes'))
 
 if(process.env.NODE_ENV === "production"){
   app.use('/', express.static(path.join(__dirname, 'client', 'build')))

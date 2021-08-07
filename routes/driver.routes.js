@@ -19,7 +19,7 @@ router.post(
       
       driver.save()
       newUser.save()
-      res.json({message:"Водила добавлен"})
+      res.json({message:"Видетель добавлен"})
     } catch (e) {
       console.log(e)
       res.status(500).json({ message: 'Что то пошло не так, попробуйте снова' })

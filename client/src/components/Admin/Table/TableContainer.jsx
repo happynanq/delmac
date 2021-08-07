@@ -20,6 +20,21 @@ export const TableContainer = () => {
     message(res.message)
     getUsers()
   }
+  const handleDelete = async(e, id)=>{
+    e.preventDefault()    
+    try {
+      const res = await request('/api/delete/people', 'POST', {
+      
+        _id: id,
+        accessLevel:type
+      })
+      message(res.message)
+      getUsers()
+    } catch (e) {
+      message(e)
+    }
+    
+  }
   useEffect(() => {
     getUsers()
   }, [getUsers])
@@ -32,6 +47,7 @@ export const TableContainer = () => {
         type={type}
         handleSubmit={handleSubmit}
         loading={loading}
+        handleDelete={handleDelete}
       />
     
     )

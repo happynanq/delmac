@@ -1,5 +1,7 @@
 {
   "port": 5000,
   "mongoURI": "mongodb+srv://Kirill:1234qwer@users.4aom9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "jwtSecret": "sercretalDELMAC"
+  "jwtSecret": "sercretalDELMAC",
+  "email":"happynanqtwink@gmail.com",
+  "emailPass":"pznjkiyinwuspcxc"
 }

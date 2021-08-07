@@ -1,7 +1,7 @@
 import React, {  useEffect, useState } from 'react'
 import { useMessage } from '../../hooks/message.hook'
 import { AddDriver } from './AddDriver'
-export const AddDriverContainer = ({auth, createDriver, request}) => {
+export const AddDriverContainer = ({auth, request, setToChangeDriver}) => {
   
 
   const driver = ['name', 'lastName', 'patronymic', 'birthday', 'describe', 'accidentСredit', 'fineСredit', 'leaseСredit', 'otherСredit']
@@ -47,7 +47,7 @@ export const AddDriverContainer = ({auth, createDriver, request}) => {
       }
     })
     if(wrong){
-      return message("ПАШОЛ НАХУЙ, ДОБАВЛЯЙ")
+      return message("Не хватает данных")
     }
     let n = await request("/api/driver/create", "POST", data, {authorization:`Bearer ${auth.token}`})
     message(n.message)
@@ -64,8 +64,8 @@ export const AddDriverContainer = ({auth, createDriver, request}) => {
         keyboardHandler={keyboardHandler}
         data={data}
         handleInput={handleInput}
-        createDriver={createDriver}
         handleSubmit={handleSubmit}
+        setToChangeDriver={setToChangeDriver}
       /> :
       null
       }

@@ -21,13 +21,17 @@ export const useAuth = () => {
   }, [])
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(storageName))
-    const w = async()=>{if(data.accessLevel==="unconfirmed")
-    {
+    if(!data){
+
+      return
+    }
+    const w = async()=>{
+    
       try {
+        
         let d = await request('/api/get/user', 'POST', null, {
           authorization: `Bearer ${data.token}`,
         })
-        debugger
          
         if(data && data.token){
           login(data.token, data.userID, d.accessLevel)
@@ -36,9 +40,9 @@ export const useAuth = () => {
         console.log(e)
       }
       
-    }}
+    }
     w()
     
-  }, [login])
+  }, [login, request])
   return { login, logout, token, userID, accessLevel }
 }

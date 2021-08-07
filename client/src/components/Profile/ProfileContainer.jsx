@@ -7,7 +7,7 @@ import { Preloader } from '../Preloader/Preloader'
 import { AddDriverContainer } from './AddDriverContainer'
 import { Profile } from './Profile'
 import { ProfileChange } from './ProfileChange'
-export const ProfileContainer = ({ toChangeDriver }) => {
+export const ProfileContainer = ({ toChangeDriver, setToChangeDriver }) => {
   const auth = useContext(AuthContext)
   const [ud, setUd] = useState({})
   const [change, setChange] = useState(false)
@@ -66,7 +66,7 @@ export const ProfileContainer = ({ toChangeDriver }) => {
           <Preloader />
         </div>
       ) : isDriver ? (
-        <AddDriverContainer />
+        <AddDriverContainer auth={auth}  request={request} setToChangeDriver={setToChangeDriver}/>
       ) : change ? (
         <ProfileChange
           ud={ud}

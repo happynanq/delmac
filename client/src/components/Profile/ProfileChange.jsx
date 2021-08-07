@@ -54,7 +54,6 @@ export const ProfileChange = ({ ud, handleChange, token, getUser }) => {
         message(data.message)
         getUser() // UPDATE USER
         localStorage.setItem(storageName, JSON.stringify({...JSON.parse(localStorage.getItem(storageName)), accessLevel:"unconfirmed"}))
-        debugger
       } catch (e) {
         message(e.message)
       }
